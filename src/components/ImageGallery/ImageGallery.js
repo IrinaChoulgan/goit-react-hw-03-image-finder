@@ -52,24 +52,24 @@ export default class ImageGallery extends Component {
   }
 
   handleClick = () => {
-    // this.setState(() => ({
-    //   page: (this.state.page += 1),
-    // }));
-    const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
-    const BASE_URL =
-      'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
-    fetch(
-      `${BASE_URL}&q=${this.props.imageValue}&page=${this.state.page}&per_page=12&key=${KEY_API}`,
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(() => {
-        this.setState(prevProps => ({
-          page: (this.state.page += 1),
-          imageValue: [...prevProps, ...this.props.imageValue],
-        }));
-      });
+    this.setState(() => ({
+      page: (this.state.page += 1),
+    }));
+    // const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
+    // const BASE_URL =
+    //   'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
+    // fetch(
+    //   `${BASE_URL}&q=${this.props.imageValue}&page=${this.state.page}&per_page=12&key=${KEY_API}`,
+    // )
+    //   .then(res => {
+    //     return res.json();
+    //   })
+    //   .then(() => {
+    //     this.setState(prevProps => ({
+    //       page: (this.state.page += 1),
+    //       imageValue: [...prevProps, ...this.props.imageValue],
+    //     }));
+    //   });
   };
   render() {
     const { children } = this.props;
@@ -97,7 +97,7 @@ export default class ImageGallery extends Component {
               </li>
             ))}
           </ul>
-          <button type="button" onClick={this.handleClick}>
+          <button type="button" onClick={this.handleClick} className="Button">
             Load more
           </button>
         </div>
