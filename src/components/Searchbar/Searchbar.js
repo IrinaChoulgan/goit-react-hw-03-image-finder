@@ -1,14 +1,49 @@
-import React from 'react';
+import { Component } from 'react';
 import s from '../Searchbar/Searchbar.module.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default class Searchbar extends Component {
-  state = {};
+export class Searchbar extends Component {
+  state = {
+    imageValue: '',
+  };
 
-  componentDidMount() {}
+  handleValueChange = e => {
+    this.setState({ imageValue: e.currentTarget.value.toLowerCase() });
+  };
 
-  componentDidUpdate(prevProps, prevState) {}
+  handleSubmit = e => {
+    e.preventDefault();
+
+    if (this.state.imageValue.trim() === '') {
+      return toast('Enter value');
+    }
+    this.props.onSubmit(this.state.imageValue);
+    this.setState({
+      imageValue: '',
+    });
+  };
 
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <form className="SearchForm" onSubmit={this.handleSubmit}>
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
+          </button>
+
+          <input
+            onChange={this.handleValueChange}
+            value={this.state.imageValue}
+            className="SearchForm-input"
+            type="text"
+            // autocomplete="off"
+            // autofocus
+            placeholder="Search images and photos"
+          />
+        </form>
+      </div>
+    );
   }
 }
+export default Searchbar;

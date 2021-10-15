@@ -1,14 +1,21 @@
-import React from 'react';
+import { Component } from 'react';
 import s from '../ImageGalleryItem/ImageGalleryItem.module.css';
 
 export default class ImageGalleryItem extends Component {
-  state = {};
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
-
   render() {
-    return <div></div>;
+    const { imageValue } = this.props;
+    return (
+      <div>
+        {imageValue.hits.map(el => (
+          <li className="ImageGalleryItem" key={el.id}>
+            <img
+              src={el.webformatURL}
+              alt={el.tags}
+              className="ImageGalleryItem-image"
+            />
+          </li>
+        ))}
+      </div>
+    );
   }
 }
