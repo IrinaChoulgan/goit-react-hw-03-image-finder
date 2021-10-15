@@ -12,8 +12,13 @@ export default class ImageGallery extends Component {
   };
   maxPages = 0;
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.imageValue !== this.props.imageValue) {
+    if (
+      prevProps.imageValue !== this.props.imageValue ||
+      prevProps.page !== this.props.page
+    ) {
       console.log('изменилось имя');
+      console.log('изменил page');
+
       const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
       const BASE_URL =
         'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
@@ -47,9 +52,24 @@ export default class ImageGallery extends Component {
   }
 
   handleClick = () => {
-    this.setState(() => ({
-      page: (this.state.page += 1),
-    }));
+    // this.setState(() => ({
+    //   page: (this.state.page += 1),
+    // }));
+    const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
+    const BASE_URL =
+      'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
+    fetch(
+      `${BASE_URL}&q=${this.props.imageValue}&page=${this.state.page}&per_page=12&key=${KEY_API}`,
+    )
+      .then(res => {
+        return res.json();
+      })
+      .then(() => {
+        this.setState(prevProps => ({
+          page: (this.state.page += 1),
+          imageValue: [...prevProps, ...this.props.imageValue],
+        }));
+      });
   };
   render() {
     const { children } = this.props;
