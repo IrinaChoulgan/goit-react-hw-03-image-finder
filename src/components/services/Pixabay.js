@@ -1,29 +1,12 @@
-import axios from 'axios';
+const imageFetch = (imageValue, page) => {
+  const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
+  const BASE_URL = 'https://pixabay.com/api/';
 
-export default class PixabayFetch {
-  constructor(BASE_URL, KEY_API) {
-    this.BASE_URL = BASE_URL;
-    this.KEY_API = KEY_API;
-    this._searchQuery = 'banana';
-    this.page = 1;
-    this.perPage = 5;
-  }
-  get searchQuery() {
-    return this._searchQuery;
-  }
-  set searchQuery(value) {
-    return (this._searchQuery = value);
-  }
-  searchPhotos(BASE_URL, KEY_API) {
-    let url = `${BASE_URL}&q=${this._searchQuery}&page=${this.page}&per_page=${this.perPage}&key=${KEY_API}`;
+  fetch(
+    `${BASE_URL}&q=${imageValue}&page=${page}&per_page=12&key=${KEY_API}`,
+  ).then(res => {
+    return res.json();
+  });
+};
 
-    axios
-      .get(url)
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-}
+export default imageFetch;

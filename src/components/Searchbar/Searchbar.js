@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import s from '../Searchbar/Searchbar.module.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

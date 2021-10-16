@@ -1,14 +1,12 @@
 import React from 'react';
-import s from '../Loader/Loader.module.css';
+import Loader from 'react-loader-spinner';
 
-export default class Loader extends Component {
-  state = {};
+const FuncLoader = () => {
+  return (
+    <div className="loader">
+      <Loader type="TailSpin" color="#303f9f" height={80} width={80} />
+    </div>
+  );
+};
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
-
-  render() {
-    return <div></div>;
-  }
-}
+export default FuncLoader;
