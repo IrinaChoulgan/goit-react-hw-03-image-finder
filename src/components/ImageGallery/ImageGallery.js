@@ -16,6 +16,17 @@ export default class ImageGallery extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.props.imageValue !== prevProps.imageValue) {
+      this.setState({
+        imageValue: [],
+      });
+    }
+    if (
+      prevState.imageValue.length !== this.state.imageValue.length &&
+      prevState.imageValue.length !== 0
+    ) {
+      this.scrollForImages();
+    }
     if (
       prevProps.imageValue !== this.props.imageValue ||
       prevState.page !== this.state.page
@@ -48,7 +59,6 @@ export default class ImageGallery extends Component {
               imageValue: [...prev.imageValue, ...imageValue.hits],
               status: 'resolved',
             }));
-          this.scrollForImages();
         })
 
         .catch(error => this.setState({ error, status: 'rejected' }));
