@@ -60,12 +60,10 @@ export default class ImageGallery extends Component {
     }));
   };
   scrollForImages = () => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      });
-    }, 500);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   };
   render() {
     const { imageValue, status } = this.state;

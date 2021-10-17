@@ -27,21 +27,11 @@ export default class App extends Component {
     this.maxImage = imageUrl;
     this.setState({ openModal: true });
   };
-
-  // scrollToHandler = () => {
-  //   setTimeout(() => {
-  //     window.scrollTo({
-  //       top: document.documentElement.scrollHeight,
-  //       behavior: 'smooth',
-  //     });
-  //   }, 750);
-  // };
   render() {
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery
-          // scrollToHandler={this.scrollToHandler}
           imageValue={this.state.imageValue}
           showImageFunc={this.showImageFunc}
         ></ImageGallery>
