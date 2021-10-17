@@ -8,7 +8,7 @@ export default class ImageGalleryItem extends Component {
           src={this.props.src}
           alt={this.props.alt}
           className="ImageGalleryItem-image"
-          onClick={this.props.showImageHandle}
+          onClick={this.props.showImageFunc}
         />
       </li>
     );
