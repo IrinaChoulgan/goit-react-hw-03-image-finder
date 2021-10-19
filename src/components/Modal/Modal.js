@@ -18,7 +18,7 @@ class Modal extends Component {
     }
   };
 
-  OnOverlayHandler = event => {
+  overlayClickHandler = event => {
     if (event.currentTarget === event.target) {
       this.props.onClose();
     }
@@ -26,9 +26,9 @@ class Modal extends Component {
 
   render() {
     return createPortal(
-      <div className="Overlay" onClick={this.OnOverlayHandler}>
+      <div className="Overlay" onClick={this.overlayClickHandler}>
         <div className="Modal">
-          <img src={this.props.maxImage} alt="" />
+          <img src={this.props.bigURL} alt="" />
         </div>
       </div>,
       modalRoot,

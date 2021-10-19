@@ -1,16 +1,24 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class ImageGalleryItem extends Component {
+class ImageGalleryItem extends Component {
   render() {
     return (
-      <li className="ImageGalleryItem" id={this.props.id}>
+      <li className="ImageGalleryItem">
         <img
-          src={this.props.src}
-          alt={this.props.alt}
+          src={this.props.webformatURL}
+          alt=""
           className="ImageGalleryItem-image"
-          onClick={this.props.showImageFunc}
+          onClick={this.props.showImageHandle}
         />
       </li>
     );
   }
 }
+
+ImageGalleryItem.propType = {
+  img: PropTypes.string.isRequired,
+  showImageHandle: PropTypes.func.isRequired,
+};
+
+export default ImageGalleryItem;

@@ -2,49 +2,47 @@ import { Component } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export class Searchbar extends Component {
+class Searchbar extends Component {
   state = {
-    imageValue: '',
+    value: '',
   };
 
-  handleValueChange = e => {
-    this.setState({ imageValue: e.currentTarget.value.toLowerCase() });
+  changeHandler = e => {
+    this.setState({ value: e.target.value });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  submitHandler = event => {
+    event.preventDefault();
 
-    if (this.state.imageValue.trim() === '') {
-      return toast('Enter value');
+    if (this.state.value.trim() === '') {
+      toast.error('Please enter search request!');
+      return;
     }
-    this.props.onSubmit(this.state.imageValue);
-    this.setState({
-      imageValue: '',
-    });
+    this.props.onSubmit(this.state.value);
+    this.setState({ value: '' });
   };
 
   render() {
     return (
-      <div>
-        <header className="Searchbar">
-          <form className="SearchForm" onSubmit={this.handleSubmit}>
-            <button type="submit" className="SearchForm-button">
-              <span className="SearchForm-button-label">Search</span>
-            </button>
+      <header className="Searchbar">
+        <form className="SearchForm" onSubmit={this.submitHandler}>
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
+          </button>
 
-            <input
-              onChange={this.handleValueChange}
-              value={this.state.imageValue}
-              className="SearchForm-input"
-              type="text"
-              // autocomplete="off"
-              // autofocus
-              placeholder="Search images and photos"
-            />
-          </form>
-        </header>
-      </div>
+          <input
+            className="SearchForm-input"
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.changeHandler}
+            value={this.state.value}
+          />
+        </form>
+      </header>
     );
   }
 }
+
 export default Searchbar;

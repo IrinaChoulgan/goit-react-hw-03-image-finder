@@ -1,7 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 
-const FuncLoader = () => {
+const LoaderFunc = () => {
   return (
     <div className="loader">
       <Loader type="TailSpin" color="#303f9f" height={80} width={80} />
@@ -9,4 +9,4 @@ const FuncLoader = () => {
   );
 };
 
-export default FuncLoader;
+export default LoaderFunc;
