@@ -4,7 +4,6 @@ import FuncLoader from '../Loader/Loader';
 import Modal from '../Modal/Modal';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Button from '../Button/Button';
-import api from '../services/Pixabay';
 
 export default class ImageGallery extends Component {
   state = {
@@ -22,6 +21,7 @@ export default class ImageGallery extends Component {
     if (this.props.imageValue !== prevProps.imageValue) {
       this.setState({
         imageValue: [],
+        page: 1,
       });
     }
     if (
