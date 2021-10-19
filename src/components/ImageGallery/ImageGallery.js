@@ -61,7 +61,7 @@ export default class ImageGallery extends Component {
             this.setState(prev => ({
               imageValue: [...prev.imageValue, ...imageValue.hits],
               status: 'resolved',
-              // page: (this.state.page = 1),
+              page: (this.state.page = 1),
             }));
         })
 
