@@ -13,6 +13,7 @@ export default class ImageGallery extends Component {
     page: 1,
     perPage: 12,
     showModal: false,
+    totalHits: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -57,6 +58,7 @@ export default class ImageGallery extends Component {
           } else
             this.setState(prev => ({
               imageValue: [...prev.imageValue, ...imageValue.hits],
+              page: (this.state.page = 1),
               status: 'resolved',
             }));
         })
@@ -77,34 +79,33 @@ export default class ImageGallery extends Component {
   };
   render() {
     const { imageValue, status } = this.state;
-    if (status === 'idle') {
-      return <div className="idleDiv">Enter name value</div>;
-    }
-
-    if (status === 'pending') {
-      return <FuncLoader />;
-    }
-    if (status === 'rejected') {
-      return <h1>такого имени нет {this.props.imageValue}</h1>;
-    }
-    if (status === 'resolved') {
-      return (
-        <div>
-          <ul className="ImageGallery">
-            {imageValue.map(({ id, webformatURL, tags, largeImageURL }) => (
-              <ImageGalleryItem
-                key={id}
-                src={webformatURL}
-                alt={tags}
-                className="ImageGalleryItem-image"
-                showImageFunc={this.props.showImageFunc(largeImageURL)}
-              />
-            ))}
-            {this.state.showModal && <Modal />}
-          </ul>
-          <Button onClick={this.handleClick} />
-        </div>
-      );
-    }
+    return (
+      <div>
+        {status === 'idle' && <div className="idleDiv">Enter name value</div>}
+        <ul className="ImageGallery">
+          {imageValue.map(({ id, webformatURL, tags, largeImageURL }) => (
+            <ImageGalleryItem
+              key={id}
+              src={webformatURL}
+              alt={tags}
+              className="ImageGalleryItem-image"
+              showImageFunc={this.props.showImageFunc(largeImageURL)}
+            />
+          ))}
+          {this.state.showModal && <Modal />}
+        </ul>
+        {status === 'rejected' && (
+          <h1>такого имени нет {this.props.imageValue}</h1>
+        )}
+        {status === 'pending' ? (
+          <FuncLoader />
+        ) : (
+          imageValue.length > 0 &&
+          this.state.page !== Math.ceil(this.state.totalHits / 12) && (
+            <Button onClick={this.handleClick} />
+          )
+        )}
+      </div>
+    );
   }
 }

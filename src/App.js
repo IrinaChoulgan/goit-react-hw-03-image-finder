@@ -10,12 +10,13 @@ export default class App extends Component {
     imageValue: [],
     openModal: false,
     isLoading: false,
+    pixaBayImages: [],
   };
   maxImage = '';
   newElementHight = 0;
 
   handleFormSubmit = imageValue => {
-    this.setState({ imageValue });
+    this.setState({ imageValue, page: 1, pixaBayImages: [] });
   };
 
   closeModal = () => {
