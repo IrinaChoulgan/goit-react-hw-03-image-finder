@@ -11,23 +11,18 @@
 
 // export default imageFetch;
 
-import axios from 'axios';
-
-axios.defaults.baseURL =
-  'https://pixabay.com/api/?image_type=photo&orientation=horizontal';
-const KEY_API = '23070790-299ad5e8dfdc75cc527267990';
-
-async function fetchPixaBayAPI(imageValue, page = 1) {
-  try {
-    const {
-      data: { hits },
-    } = await axios.get(
-      `?&q=${imageValue}&page=${page}&key=${KEY_API}&per_page=12`,
-    );
-    return hits;
-  } catch (error) {
-    console.log(error.message);
-  }
+function fetchImages(imageValue, page) {
+  const BASE_URL = 'https://pixabay.com/api/';
+  const API_KEY = '23070790-299ad5e8dfdc75cc527267990';
+  return fetch(
+    `${BASE_URL}?q=${imageValue}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
+  )
+    .then(response => response.json())
+    .then(data => ({ images: data.hits, totalHits: data.totalHits }));
 }
 
-export default fetchPixaBayAPI;
+const api = {
+  fetchImages,
+};
+
+export default api;

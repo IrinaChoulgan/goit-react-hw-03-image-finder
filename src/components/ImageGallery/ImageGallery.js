@@ -4,6 +4,7 @@ import FuncLoader from '../Loader/Loader';
 import Modal from '../Modal/Modal';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Button from '../Button/Button';
+import api from '../services/Pixabay';
 
 export default class ImageGallery extends Component {
   state = {
@@ -14,6 +15,7 @@ export default class ImageGallery extends Component {
     perPage: 12,
     showModal: false,
     totalHits: null,
+    showBtn: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -59,13 +61,15 @@ export default class ImageGallery extends Component {
             this.setState(prev => ({
               imageValue: [...prev.imageValue, ...imageValue.hits],
               status: 'resolved',
+              // page: (this.state.page = 1),
             }));
         })
 
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
-  handleClick = () => {
+  handleClick = e => {
+    console.log(e.target.value);
     this.setState(() => ({
       page: this.state.page + 1,
     }));
@@ -81,6 +85,7 @@ export default class ImageGallery extends Component {
     return (
       <div>
         {status === 'idle' && <div className="idleDiv">Enter name value</div>}
+        {status === 'pending' && <FuncLoader />}
         <ul className="ImageGallery">
           {imageValue.map(({ id, webformatURL, tags, largeImageURL }) => (
             <ImageGalleryItem
@@ -96,11 +101,8 @@ export default class ImageGallery extends Component {
         {status === 'rejected' && (
           <h1>такого имени нет {this.props.imageValue}</h1>
         )}
-        {status === 'pending' ? (
-          <FuncLoader />
-        ) : (
-          <Button onClick={this.handleClick} />
-        )}
+        {imageValue.length > 0 && <Button onClick={this.handleClick} />}
+        {/* {status === 'pending' && <FuncLoader />} */}
       </div>
     );
   }
