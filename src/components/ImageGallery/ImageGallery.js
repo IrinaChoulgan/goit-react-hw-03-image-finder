@@ -58,7 +58,6 @@ export default class ImageGallery extends Component {
           } else
             this.setState(prev => ({
               imageValue: [...prev.imageValue, ...imageValue.hits],
-              page: (this.state.page = 1),
               status: 'resolved',
             }));
         })
@@ -100,10 +99,7 @@ export default class ImageGallery extends Component {
         {status === 'pending' ? (
           <FuncLoader />
         ) : (
-          imageValue.length > 0 &&
-          this.state.page !== Math.ceil(this.state.totalHits / 12) && (
-            <Button onClick={this.handleClick} />
-          )
+          <Button onClick={this.handleClick} />
         )}
       </div>
     );
